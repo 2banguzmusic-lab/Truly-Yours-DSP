@@ -43,18 +43,6 @@ auth.onAuthStateChanged(user => {
   }
 });
 
-  /* 🔥 FIREBASE INIT — MUST BE FIRST */
-const firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_AUTH_DOMAIN",
-  projectId: "PASTE_PROJECT_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 /* 🔽 YOUR EXISTING CODE STAYS BELOW THIS LINE 🔽 */
 
 /* 1️⃣ ADMIN SETUP */
