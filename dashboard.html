@@ -73,6 +73,22 @@ function requestPayout() {
     alert("Activate your subscription to unlock payouts.");
   }
 }
+ if (currentUser === adminEmail) {
+  document.getElementById("adminPanel").style.display = "block";
+}
+
+function forceActivate() {
+  localStorage.setItem("paid", "true");
+  alert("Subscription activated");
+  location.reload();
+}
+
+function forceDeactivate() {
+  localStorage.setItem("paid", "false");
+  alert("Subscription deactivated");
+  location.reload();
+}
+
 </script>
 
 </body>
