@@ -1,33 +1,21 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>Dashboard - Truly Yours DSP</title>
-
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: Arial;
       text-align: center;
       padding: 40px;
     }
-
     button {
-      background-color: black;
+      background: black;
       color: white;
       padding: 15px 25px;
-      font-size: 16px;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
       margin: 10px;
-    }
-
-    button:hover {
-      background-color: #222;
-    }
-
-    .status {
-      margin-bottom: 20px;
-      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -35,37 +23,33 @@
 <body>
 
 <h1>Artist Dashboard</h1>
+<p id="status"></p>
 
-<p id="status" class="status"></p>
+<button onclick="location.href='upload.html'">Upload Music</button><br>
+<button onclick="requestPayout()">Request Payout</button><br>
+<button onclick="location.href='pricing.html'">Manage Subscription</button>
 
-<button onclick="location.href='upload.html'">
-Upload Music
-</button>
+<div id="adminPanel" style="display:none; margin-top:30px;">
+  <h3>Admin Controls</h3>
+  <button onclick="forceActivate()">Force Activate</button>
+  <button onclick="forceDeactivate()">Force Deactivate</button>
+</div>
 
-<br>
-
-<button onclick="requestPayout()">
-Request Payout
-</button>
-
-<br>
-
-<button onclick="location.href='pricing.html'">
-Manage Subscription
-</button>
-
-<script> const adminEmail = "YOUR_EMAIL@example.com";
+<script>
+/* 1️⃣ ADMIN SETUP */
+const adminEmail = "YOUR_EMAIL@example.com";
 const currentUser = localStorage.getItem("currentUser");
+
+/* 2️⃣ SUBSCRIPTION STATUS */
 const paid = localStorage.getItem("paid");
 
-if (paid === "true") {
-  document.getElementById("status").innerHTML =
-    "✅ Subscription Active – Payouts Enabled";
-} else {
-  document.getElementById("status").innerHTML =
-    "⚠ Subscription Inactive – Earnings Locked";
-}
+/* 3️⃣ STATUS DISPLAY */
+document.getElementById("status").innerHTML =
+  paid === "true"
+  ? "✅ Subscription Active – Payouts Enabled"
+  : "⚠ Subscription Inactive – Earnings Locked";
 
+/* 4️⃣ USER ACTION */
 function requestPayout() {
   if (paid === "true") {
     window.open("https://forms.gle/YOUR_PAYOUT_FORM", "_blank");
@@ -73,7 +57,9 @@ function requestPayout() {
     alert("Activate your subscription to unlock payouts.");
   }
 }
- if (currentUser === adminEmail) {
+
+/* 5️⃣ ADMIN-ONLY LOGIC (BOTTOM) */
+if (currentUser === adminEmail) {
   document.getElementById("adminPanel").style.display = "block";
 }
 
@@ -88,8 +74,8 @@ function forceDeactivate() {
   alert("Subscription deactivated");
   location.reload();
 }
-
 </script>
 
 </body>
 </html>
+
