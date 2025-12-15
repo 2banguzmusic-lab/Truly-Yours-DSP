@@ -7,11 +7,23 @@
 <p id="status"></p>
 
 <a href="upload.html">Upload Music</a><br><br>
+
 <button onclick="requestPayout()">Request Payout</button><br><br>
 
-<a href="pricing.html">Manage Subscription</a>
+<a href="pricing.html">Manage Subscription</a><br><br>
+
+<!-- 🔴 TEMP ACTIVATION BUTTON GOES RIGHT HERE -->
+<button onclick="activateSub()">
+Activate Subscription (TEMP)
+</button>
 
 <script>
+function activateSub(){
+  localStorage.setItem("paid", "true");
+  alert("Subscription activated (TEMP)");
+  location.reload();
+}
+
 let paid = localStorage.getItem("paid");
 
 if(paid === "true"){
