@@ -40,19 +40,16 @@
 <body>
 
 <h1>Artist Dashboard</h1>
+
 <p style="
   color:#ff7a00;
-  margin-top:-6px;
   font-weight:900;
-  font-size:26px;
-  letter-spacing:2px;
+  font-size:22px;
   text-transform:uppercase;
   text-shadow:
     0 0 6px #ff7a00,
     0 0 14px #ff7a00,
-    0 0 28px #ff7a00,
-    0 0 45px #ff4d00,
-    0 0 70px #ff2a00;
+    0 0 28px #ff4d00;
 ">
   Control your music. Own your future.
 </p>
@@ -63,18 +60,15 @@
   padding:30px;
   border:1px solid rgba(255,255,255,0.1);
   border-radius:20px;
-  background:#ff7a00;
+  background:rgba(255,255,255,0.03);
+">
 
-
-
-
-  <p id="status" style="margin-bottom:20px;"></p>
-
-  
+  <button onclick="location.href='upload.html'">Upload Music</button>
   <button onclick="location.href='pricing.html'">Manage Subscription</button>
   <button onclick="requestPayout()">Request Payout</button>
 
-</div>style="
+  <!-- AUDIO PLAYER -->
+  <div style="
     background:rgba(0,0,0,0.4);
     border-radius:14px;
     padding:12px 16px;
@@ -95,11 +89,9 @@
       <source src="song1.mp3" type="audio/mpeg">
     </audio>
 
-<p style="margin-top:20px;">Track 3</p>
-<audio controls style="width:100%;">
-  <source src="song3.mp3" type="audio/mpeg">
-</audio>
+  </div>
 
+</div>
 
 
 
