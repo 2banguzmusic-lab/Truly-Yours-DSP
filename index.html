@@ -63,13 +63,16 @@
 <!-- SPOTLIGHT CARD -->
 <div style="
   display:flex;
-  gap:28px;
+  gap:24px;
   align-items:center;
   background:#0b0b0b;
   border-radius:20px;
-  padding:28px;
+  padding:24px;
   max-width:760px;
   margin:0 30px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.7),
+    0 0 30px rgba(255,122,0,0.15);
 ">
 
   <!-- IMAGE -->
@@ -79,24 +82,35 @@
      border-radius:14px;
   ">
     <div style="
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:48px;
-      color:#fff;
-    ">
-      ▶
-    </div>
-  </div>
+  width:220px;
+  height:220px;
+  border-radius:14px;
+  overflow:hidden;
+  position:relative;
+">
+  <img src="artist.jpg" style="
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  ">
+  <div style="
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+      180deg,
+      rgba(0,0,0,0.1),
+      rgba(0,0,0,0.6)
+    );
+  "></div>
+</div>
+
 
   <!-- INFO -->
   <div style="
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  ">
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+">
     <h3 style="margin:0; font-size:26px;">HIP HOP</h3>
     <p style="opacity:0.75; margin:0;">Featured Genre</p>
 
