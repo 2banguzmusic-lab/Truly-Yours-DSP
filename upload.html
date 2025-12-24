@@ -25,6 +25,38 @@ function goToYouTube() {
   window.open(link, "_blank");
 }
   </script>
-  
+  <!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<script src="firebase-init.js"></script>
+
+<script>
+function uploadSong() {
+  const fileInput = document.getElementById("musicFile");
+  const status = document.getElementById("uploadStatus");
+
+  if (!fileInput.files.length) {
+    status.innerText = "Pick an MP3 first.";
+    return;
+  }
+
+  const file = fileInput.files[0];
+  status.innerText = "Uploading...";
+
+  firebase.storage()
+    .ref("artists_audio/" + Date.now() + "_" + file.name)
+    .put(file)
+    .then(() => {
+      status.innerText = "✅ Upload complete!";
+    })
+    .catch(err => {
+      status.innerText = "❌ Error: " + err.message;
+    });
+}
+</script>
+
+</body>
+</html>
+
 </body>
 </html>
