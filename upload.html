@@ -2,18 +2,21 @@
 <html>
 <body>
 
-<h2>Music Video (YouTube)</h2>
+<h2>Upload Your Music</h2>
 
-<input
-  id="youtubeLink"
-  type="text"
-  placeholder="Paste your YouTube channel or video link"
-  style="width:90%; max-width:420px; padding:12px; margin-bottom:10px;"
->
+<input type="file" id="musicFile" accept=".mp3">
+<br><br>
 
-<br>
+<button onclick="uploadSong()">Upload Song</button>
+<p id="uploadStatus"></p>
 
+<input id="youtubeLink" type="text" placeholder="Paste your YouTube link">
 <button onclick="goToYouTube()">Go to My YouTube</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+
+<script src="firebase-init.js"></script>
 
 <script>
 function goToYouTube() {
@@ -24,13 +27,7 @@ function goToYouTube() {
   }
   window.open(link, "_blank");
 }
-  </script>
-  <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-<script src="firebase-init.js"></script>
 
-<script>
 function uploadSong() {
   const fileInput = document.getElementById("musicFile");
   const status = document.getElementById("uploadStatus");
@@ -44,7 +41,7 @@ function uploadSong() {
   status.innerText = "Uploading...";
 
   firebase.storage()
-    .ref("artists_audio/" + Date.now() + "_" + file.name)
+    .ref("artists_audio/" + Date.now() + "-" + file.name)
     .put(file)
     .then(() => {
       status.innerText = "✅ Upload complete!";
@@ -54,9 +51,6 @@ function uploadSong() {
     });
 }
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
