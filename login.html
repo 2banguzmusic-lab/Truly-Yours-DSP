@@ -57,39 +57,40 @@
   </div>
 
 
-  <!-- 🔥 AUTH SCRIPT -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword,
-             browserLocalPersistence, setPersistence }
-    from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+ 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword,
+         browserLocalPersistence, setPersistence }
+from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
-      authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-      projectId: "truly-yours-dsp-2025",
-      storageBucket: "truly-yours-dsp-2025.appspot.com",
-      messagingSenderId: "369021987682",
-      appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+  projectId: "truly-yours-dsp-2025",
+  storageBucket: "truly-yours-dsp-2025.appspot.com",
+  messagingSenderId: "369021987682",
+  appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+};
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    // Login function
-    window.loginUser = async () => {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+// 👉 Login function (with persistence)
+window.loginUser = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-      try {
-        await setPersistence(auth, browserLocalPersistence);
-        await signInWithEmailAndPassword(auth, email, password);
-        location.href = "dashboard.html"; // go to dashboard on success
-      } catch (err) {
-        alert("Login failed: " + err.message);
-      }
-    };
-  </script>
+  try {
+    await setPersistence(auth, browserLocalPersistence);  // <-- THIS keeps you logged in
+    await signInWithEmailAndPassword(auth, email, password);
+
+    location.href = "dashboard.html"; // go to dashboard on success
+  } catch (err) {
+    alert("Login failed: " + err.message);
+  }
+};
+</script>
 
 </body>
 </html>
