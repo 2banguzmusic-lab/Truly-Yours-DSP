@@ -120,108 +120,83 @@ firebase.auth().onAuthStateChanged(user => {
 <a href="#" class="logout-btn" onclick="logout()">Log Out</a>
 
 </div> <!-- container end -->
+
 <!-- ==== DASHBOARD SCRIPT WITH STATS ==== -->
 <script type="module">
-  /* --- Firebase Imports --- */
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-  /* --- Firebase Config --- */
-  const firebaseConfig = {
-    apiKey: "AIzaSyB9Wc9me_xmVEorMVSPMhTD9Lq7P6zjJA",
-    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-    projectId: "truly-yours-dsp-2025",
-    storageBucket: "truly-yours-dsp-2025.appspot.com",
-    messagingSenderId: "369021879682",
-    appId: "1:369021879682:web:ded7b7e150ab8fbb3cbb9b"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyB9Wc9me_xmVEorMVSPMhTD9Lq7P6zjJA",
+  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+  projectId: "truly-yours-dsp-2025",
+  storageBucket: "truly-yours-dsp-2025.appspot.com",
+  messagingSenderId: "369021879682",
+  appId: "1:369021879682:web:ded7b7e150ab8fbb3cbb9b"
+};
 
-  /* --- Init Firebase --- */
-  const app = initializeApp(firebaseConfig);
-  const storage = getStorage(app);
-  const db = getFirestore(app);
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+const db = getFirestore(app);
 
-  const songList = document.getElementById("songList");
-  const artistNameElement = document.getElementById("Artist");
-  artistNameElement.innerText = "Your Name"; // placeholder
+const songList = document.getElementById("songList");
+const artistNameElement = document.getElementById("Artist");
+artistNameElement.innerText = "Artist 🌊";
 
-  /* ============================
-     LOAD SONGS & SHOW STATS
-     ============================ */
-  async function loadSongs() {
-    songList.innerHTML = "Loading songs... 🔄";
-    const folder = ref(storage, "artists_audio/");
+async function loadSongs() {
+  songList.innerHTML = "Loading… 🔄";
+  const folder = ref(storage, "artists_audio/");
+  const files = await listAll(folder);
 
-    const files = await listAll(folder);
-    songList.innerHTML = "";
-
-    if (files.items.length === 0) {
-      songList.innerHTML = "<li>No uploads yet — drop one! 🔥</li>";
-      return;
-    }
-
-    for (const fileRef of files.items) {
-      const url = await getDownloadURL(fileRef);
-      const fileName = fileRef.name.replace(/^\d+-/, "");
-      const statDoc = doc(db, "stats", fileRef.name);
-
-      // Get or create stats
-      let stats = await getDoc(statDoc);
-      if (!stats.exists()) {
-        await setDoc(statDoc, { plays: 0, views: 0 });
-        stats = await getDoc(statDoc);
-      }
-
-      const { plays, views } = stats.data();
-
-      // Create list item
-      const li = document.createElement("li");
-      li.innerHTML = `
-        🎵 <strong>${fileName}</strong><br>
-        ▶️ Plays: ${plays} &nbsp;&nbsp; 👁 Views: ${views}
-        <br>
-        <button style="margin-top:5px;" onclick="playSong('${fileRef.name}', '${url}')">
-          PLAY
-        </button>
-      `;
-      songList.appendChild(li);
-    }
+  if (!files.items.length) {
+    songList.innerHTML = "<li>No songs yet — upload one 🔥</li>";
+    return;
   }
 
+  songList.innerHTML = "";
+
+  for (const fileRef of files.items) {
+    const url = await getDownloadURL(fileRef);
+    const fileName = fileRef.name.replace(/^\d+-/, "");
+
+    const statDoc = doc(db, "stats", fileRef.name);
+    let stats = await getDoc(statDoc);
+
+    if (!stats.exists()) {
+      await setDoc(statDoc, { plays: 0, views: 0 });
+      stats = await getDoc(statDoc);
+    }
+
+    const { plays, views } = stats.data();
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      🎵 <strong>${fileName}</strong><br>
+      ▶️ Plays: ${plays} &nbsp; 👁 Views: ${views}<br>
+      <button onclick="playSong('${fileRef.name}', '${url}')">PLAY</button>
+    `;
+    songList.appendChild(li);
+  }
+}
+
+window.playSong = async (filename, url) => {
+  const audio = new Audio(url);
+  audio.play();
+
+  const statDoc = doc(db, "stats", filename);
+  await updateDoc(statDoc, {
+    plays: increment(1),
+    views: increment(1)
+  });
+
   loadSongs();
+};
 
-
-  /* ============================
-       PLAY SONG + TRACK STATS
-     ============================ */
-  window.playSong = async function(filename, url) {
-    const audio = new Audio(url);
-    audio.play();
-
-    const statDoc = doc(db, "stats", filename);
-    await updateDoc(statDoc, {
-      plays: increment(1),
-      views: increment(1)
-    });
-
-    loadSongs(); // refresh stats
-  };
-
-  /* ============================
-        LOGOUT BUTTON
-     ============================ */
-  window.logout = function() {
-    alert("Logout clicked — login system coming 🔐");
-  };
-
-</script>
-
-<!-- 🔥 SCRIPT GOES **HERE** -->
-<script>
-  // loadSongs(), trackPlay(), logout(), etc
+loadSongs();
 </script>
 
 </body>
 </html>
+
 
