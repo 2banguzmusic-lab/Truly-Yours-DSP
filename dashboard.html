@@ -54,7 +54,35 @@
 </style>
 </head>
 
+
 <body>
+
+<!-- 🔐 AUTH CHECK SCRIPT -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSy89b9me_xmEorWFSNPHsTDP4u7Pc6jJfA",
+    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+    projectId: "truly-yours-dsp-2025",
+    storageBucket: "truly-yours-dsp-2025.appspot.com",
+    messagingSenderId: "369021987682",
+    appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      document.getElementById("Artist").innerText = user.email.split("@")[0];
+      console.log("Logged in:", user.email);
+    } else {
+      location.href = "login.html";
+    }
+  });
+</script>
 
 <!-- ====== NAV ====== -->
 <div class="navbar">
