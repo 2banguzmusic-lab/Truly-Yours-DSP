@@ -3,6 +3,7 @@
 <head>
 <title>Truly Yours DSP</title>
 
+<!-- ==== MAIN STYLE ==== -->
 <style>
 /* ==== FONTS ==== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
@@ -24,183 +25,94 @@ body {
     var(--dark-bg);
   color: white;
 }
+
+/* ==== NAVBAR ==== */
+.navbar {
+  width: 100%;
+  padding: 18px 40px;
+  background: rgba(0,0,0,0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  gap: 25px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.navbar a:hover {
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink);
+}
+
+/* ==== HERO SECTION ==== */
+.hero {
+  padding-top: 160px;
+  padding-left: 50px;
+  padding-bottom: 60px;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 46px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.hero span {
+  color: var(--neon-purple);
+  text-shadow: 0 0 12px var(--neon-purple);
+}
+
+/* ==== HERO BUTTON ==== */
+.hero button {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 700px;
+  padding: 20px 40px;
+  border: none;
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  border-radius: 30px;
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+  transition: 0.3s;
+}
+
+.hero button:hover {
+  letter-spacing: 1.5px;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--neon-pink);
+}
+
+/* ==== TAGLINE ==== */
+.tagline {
+  margin-top: 15px;
+  letter-spacing: 0.8px;
+  font-size: 13px;
+  color: #ccc;
+}
 </style>
 
 </head>
 <body>
 
-/* ==== NAVBAR ==== */
-.navbar {
-    width: 100%;
-    padding: 18px 40px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    position: fixed; /* stays on top */
-    top: 0;
-}
-
-/* ==== HERO BUTTON ==== */
-button {
-    display: inline-block;
-    width: 350px;
-    padding: 16px 0;
-    margin-top: 25px;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
-    border: none;
-    border-radius: 50px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: 0.4s ease;
-}
-
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px var(--neon-pink);
-}
-
-/* ==== FOOTER ==== */
-footer {
-    width: 100%;
-    padding: 30px 20px;
-    margin-top: 100px;
-    text-align: center;
-    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
-    color: white;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-}
-
-/* ==== FOOTER LINKS ==== */
-footer a {
-    color: white;
-    margin: 0 15px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-footer a:hover {
-    color: var(--neon-pink);
-    text-shadow: 0 0 6px var(--neon-pink);
-}
-
-/* ==== HERO TEXT ==== */
-.hero h1 {
-    font-size: 70px;
-    margin-top: 140px; /* pushes text down because navbar fixed */
-    line-height: 1.1;
-}
-
-.hero span {
-    color: var(--neon-pink);
-}
-
-</style>
-
-</head>
-
-<!-- SPOTLIGHT TITLE -->
-<div style="padding:40px 30px;">
-  <h2 style="font-size:28px;">LIVE ARTIST SPOTLIGHT</h2>
+<!-- ==== NAVBAR ==== -->
+<div class="navbar">
+  <a href="index.html">HOME</a>
+  <a href="about.html">ABOUT</a>
+  <a href="pricing.html">PRICING</a>
 </div>
 
-<!-- SPOTLIGHT CARD -->
-<div style="
-  display:flex;
-  gap:24px;
-  align-items:center;
-  background:#0b0b0b;
-  border-radius:20px;
-  padding:24px;
-  max-width:760px;
-  margin:0 30px;
-  
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.65),
-    0 4px 12px rgba(0,0,0,0.4);
-">
-
-  <!-- IMAGE -->
-  <img src="artist.jpg" style=
-    "width:220px;
-     height:220px; 
-     border-radius:14px;
-  ">
-    <div style="
-  width:220px;
-  height:220px;
-  border-radius:14px;
-  overflow:hidden;
-  position:relative;
-">
-  <img src="artist.jpg" style="
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  ">
-  <div style="
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-      180deg,
-      rgba(0,0,0,0.1),
-      rgba(0,0,0,0.6)
-    );
-  "></div>
-</div>
-
-
-  <!-- INFO -->
-  <div style="
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-">
-    <h3 style="margin:0; font-size:26px;">HIP HOP</h3>
-    <p style="opacity:0.75; margin:0;">Featured Genre</p>
-
-    <button style="
-      margin-top:12px;
-      background:#ff7a00;
-      padding:14px 30px;
-      border-radius:12px;
-      font-size:16px;
-    " onclick="location.href='listen.html'">
-      🔥 LISTEN NOW
-    </button>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<div style="
-  margin-top:80px;
-  background:linear-gradient(90deg,#ff7a00,#ff9a33);
-  padding:36px;
-">
-
-  <h3 style="margin-top:0;">Truly Yours DSP</h3>
-
-  <div style="
-    display:flex;
-    gap:32px;
-    margin-top:12px;
-  ">
-    <a href="index.html">HOME</a>
-    <a href="about.html">ABOUT</a>
-    <a href="pricing.html">PRICING</a>
-  </div>
-
-  <p style="margin-top:22px; font-size:14px;">
-    © 2024 Truly Yours DSP
-  </p>
-
-</div>
+<!-- ==== HERO ==== -->
 <div class="hero">
   <h1>
     DROP YOUR MUSIC.<br>
@@ -217,10 +129,10 @@ footer a:hover {
   </button>
 
   <div class="tagline">
-    No contracts • No gatekeepers • 100% artist energy
+    No contracts • No gatekeepers • 99% artist controlled
   </div>
 </div>
 
 </body>
-
 </html>
+
