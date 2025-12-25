@@ -144,9 +144,13 @@ const songList = document.getElementById("songList");
 const artistNameElement = document.getElementById("Artist");
 artistNameElement.innerText = "Artist 🌊";
 
+// ==== LOAD SONGS ====
 async function loadSongs() {
   songList.innerHTML = "Loading… 🔄";
-  const folder = ref(storage, "artists_audio/");
+  
+  // change folder path to root
+  const folder = ref(storage, "/");  
+
   const files = await listAll(folder);
 
   if (!files.items.length) {
