@@ -103,36 +103,28 @@ firebase.auth().onAuthStateChanged(user => {
   <h1>Welcome back, <span>Artist!</span>🌊</h1>
   <p>Your wave is growing — keep dropping heat.</p>
 
-  <!-- Recent Uploads -->
-  <div class="section-box">
-    <h2>Recent Uploaded Songs</h2>
-    <ul>
-      <li>🔥 Track #1 — "Example Song.mp3"</li>
-      <li>🔥 Track #2 — "MySecondSong.mp3"</li>
-      <li>🔥 Track #3 — "WAVE_2025.mp3"</li>
-    </ul>
-    <a href="upload.html" class="upload-btn">UPLOAD MORE MUSIC ➜</a>
-  </div>
+  <!-- RECENT SONGS WITH STATS -->
+<h2>Your Uploaded Songs 🎧</h2>
+<ul id="songList">Loading...</ul>
 
-  <!-- YouTube Links -->
-  <div class="section-box">
-    <h2>Your YouTube Links</h2>
-    <ul>
-      <li><a href="https://youtube.com/" target="_blank" style="color:var(--neon-pink)">https://youtube.com/example</a></li>
-      <li><a href="https://youtube.com/" target="_blank" style="color:var(--neon-pink)">https://youtube.com/musicvideo</a></li>
-    </ul>
-  </div>
-
-  <!-- Logout -->
-  <a href="#" class="logout-btn" onclick="logout()">Log Out</a>
-
+<!-- YouTube Links -->
+<div class="section-box">
+  <h2>Your YouTube Links</h2>
+  <ul>
+    <li><a href="https://youtube.com/" target="_blank" style="color:var(--neon-pink)">Example Link</a></li>
+  </ul>
 </div>
 
+<!-- Logout -->
+<a href="#" class="logout-btn" onclick="logout()">Log Out</a>
+
+</div> <!-- container end -->
+
+<!-- 🔥 SCRIPT GOES **HERE** -->
 <script>
-function logout() {
-  alert("Logout coming soon — for now this just shows artists what will happen.");
-}
+  // loadSongs(), trackPlay(), logout(), etc
 </script>
 
 </body>
 </html>
+
