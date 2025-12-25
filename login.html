@@ -2,16 +2,62 @@
 <html>
 <head>
   <title>Login | Truly Yours DSP</title>
+  <style>
+    body {
+      background: #1a002e;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 95%;
+      padding: 10px;
+      background: #c026d3;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- your login form UI -->
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="loginUser()">Login</button>
+  <div class="login-box">
+    <h2>🎧 Truly Yours DSP</h2>
+    <p>Login to continue</p>
 
-  <!-- 🔥 PUT THE SCRIPT RIGHT HERE -->
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+
+  <!-- 🔥 AUTH SCRIPT -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, signInWithEmailAndPassword,
@@ -38,13 +84,12 @@
       try {
         await setPersistence(auth, browserLocalPersistence);
         await signInWithEmailAndPassword(auth, email, password);
-        location.href = "dashboard.html"; // SUCCESS -> GO TO DASHBOARD
+        location.href = "dashboard.html"; // go to dashboard on success
       } catch (err) {
         alert("Login failed: " + err.message);
       }
     };
   </script>
-  <!-- 🔥 END OF SCRIPT -->
 
 </body>
 </html>
