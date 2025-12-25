@@ -1,88 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
 <title>Artist Dashboard — Truly Yours DSP</title>
 
-<!-- ====== STYLES ====== -->
+<!-- ====== BASIC STYLES ====== -->
 <style>
     body {
-        background: radial-gradient(circle at 20% 20%, #290030, #000000);
+        background: #0d001a;
         color: white;
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
     }
     .navbar {
+        background: rgba(255,255,255,0.05);
+        padding: 12px;
         display: flex;
         gap: 20px;
-        padding: 15px;
-        background: rgba(255,255,255,0.05);
-        font-weight: bold;
+        font-size: 18px;
     }
-    .navbar a {
-        text-decoration: none;
-        color: white;
-    }
-    .container {
-        padding: 20px;
-    }
-    .section-box {
-        background: rgba(255,255,255,0.08);
-        padding: 15px;
-        border-radius: 12px;
-        margin-top: 20px;
-    }
+    .navbar a { color: white; text-decoration: none; }
+    .container { padding: 30px; }
+    li { margin-bottom: 12px; }
     button {
-        padding: 8px 12px;
-        margin-top: 5px;
-        border-radius: 10px;
-        border: none;
+        margin-top: 6px;
+        padding: 6px 12px;
         cursor: pointer;
-        background: #d500f9;
-        color: white;
-        font-weight: bold;
-    }
-    .logout-btn {
-        display: inline-block;
-        margin-top: 15px;
-        background: rgba(255,255,255,0.1);
-        padding: 10px;
-        border-radius: 8px;
+        border-radius: 5px;
+        border: none;
+        background: #ff2ff5;
+        color: black;
     }
 </style>
+
 </head>
-
-
 <body>
-
-<!-- 🔐 AUTH CHECK SCRIPT -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSy89b9me_xmEorWFSNPHsTDP4u7Pc6jJfA",
-    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-    projectId: "truly-yours-dsp-2025",
-    storageBucket: "truly-yours-dsp-2025.appspot.com",
-    messagingSenderId: "369021987682",
-    appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      document.getElementById("Artist").innerText = user.email.split("@")[0];
-      console.log("Logged in:", user.email);
-    } else {
-      location.href = "login.html";
-    }
-  });
-</script>
 
 <!-- ====== NAV ====== -->
 <div class="navbar">
@@ -99,67 +52,93 @@
     <h2>Your Uploaded Songs 🎧</h2>
     <ul id="songList">Loading...</ul>
 
-    <div class="section-box">
-        <h2>Your YouTube Links</h2>
-        <ul>
-            <li><a href="#" style="color:#ff69ff">Example Link</a></li>
-        </ul>
-    </div>
-
-    <a href="#" class="logout-btn" onclick="logout()">Log Out</a>
+    <h2>Your YouTube Links 🎬</h2>
+    <ul>
+        <li><a href="https://youtube.com" target="_blank" style="color:#ff2ff5">Example Link</a></li>
+    </ul>
 </div>
 
-<!-- ====== DASHBOARD SCRIPT WITH STATS ====== -->
+
+<!-- ========== AUTH CHECK ========== -->
 <script type="module">
-
-/*** 🔥 Firebase Imports (v10) ***/
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-/*** 🔥 Firebase Config ***/
 const firebaseConfig = {
-  apiKey: "AIzaSyB9Wc9me_xmVEorMVSPMhTD9Lq7P6zjJA",
-  authDomain: "truly-yours-dsp-2025.firebaseapp.com",
-  projectId: "truly-yours-dsp-2025",
-  storageBucket: "truly-yours-dsp-2025.appspot.com",
-  messagingSenderId: "369021879682",
-  appId: "1:369021879682:web:ded7b7e150ab8fbb3cbb9b"
+    apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+    projectId: "truly-yours-dsp-2025",
+    storageBucket: "truly-yours-dsp-2025.appspot.com",
+    messagingSenderId: "369021987682",
+    appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
 };
 
-/*** 🔥 Init Firebase ***/
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, user => {
+    if (user) {
+        document.getElementById("Artist").innerText = user.email.split("@")[0];
+    } else {
+        console.log("🚫 No user — redirecting to login");
+        location.href = "login.html";
+    }
+});
+
+window.logout = () => {
+    signOut(auth);
+};
+</script>
+
+
+<!-- ========== LOAD SONGS + STATS ========== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getStorage, ref, listAll, getDownloadURL } 
+from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } 
+from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
+    authDomain: "truly-yours-dsp-2025.firebaseapp.com",
+    projectId: "truly-yours-dsp-2025",
+    storageBucket: "truly-yours-dsp-2025.appspot.com",
+    messagingSenderId: "369021987682",
+    appId: "1:369021987682:web:dbe97e15e0b8fb8bc3bb09"
+};
+
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const db = getFirestore(app);
 
-/*** ELEMENTS ***/
 const songList = document.getElementById("songList");
-document.getElementById("Artist").innerText = "Artist";
 
-/*** 🎧 LOAD SONGS FROM STORAGE ROOT ***/
+// ==== LOAD SONGS ====
 async function loadSongs() {
     songList.innerHTML = "Loading… 🔄";
 
-    const folder = ref(storage, "artists_audio/"); // <--- ROOT WHERE YOUR FILES ARE
+    const folder = ref(storage, "artists_audio/");
     const files = await listAll(folder);
 
     if (!files.items.length) {
-        songList.innerHTML = "<li>No songs uploaded yet 🎤🔥</li>";
+        songList.innerHTML = "<li>No songs yet — upload one 🔥</li>";
         return;
     }
 
     songList.innerHTML = "";
+
     for (const fileRef of files.items) {
         const url = await getDownloadURL(fileRef);
         const fileName = fileRef.name.replace(/^\d+-/, "");
 
-        // stats doc
-        const statDoc = doc(db, "stats", fileRef.name);
-        let stats = await getDoc(statDoc);
+        const statRef = doc(db, "stats", fileRef.name);
+        let stats = await getDoc(statRef);
 
         if (!stats.exists()) {
-            await setDoc(statDoc, { plays: 0, views: 0 });
-            stats = await getDoc(statDoc);
+            await setDoc(statRef, { plays: 0, views: 0 });
+            stats = await getDoc(statRef);
         }
 
         const { plays, views } = stats.data();
@@ -174,28 +153,20 @@ async function loadSongs() {
     }
 }
 
-/*** ▶️ PLAY SONG + TRACK STATS ***/
 window.playSong = async (filename, url) => {
     const audio = new Audio(url);
     audio.play();
 
-    const statDoc = doc(db, "stats", filename);
-    await updateDoc(statDoc, {
+    const statRef = doc(db, "stats", filename);
+    await updateDoc(statRef, {
         plays: increment(1),
-        views: increment(1)
+        views: increment(1),
     });
 
-    loadSongs(); // refresh stats
+    loadSongs();
 };
 
-/*** 🚪 LOGOUT (TEMP PLACEHOLDER) ***/
-window.logout = () => {
-    alert("Logout coming soon 🔐");
-};
-
-/*** 🔄 RUN ***/
 loadSongs();
-
 </script>
 
 </body>
