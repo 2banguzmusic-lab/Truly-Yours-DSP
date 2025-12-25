@@ -77,20 +77,6 @@
 
 <body>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="firebase-init.js"></script>
-
-<script>
-firebase.auth().onAuthStateChanged(user => {
-    if(user){
-        document.getElementById("artistname").innerText = user.email.split("@")[0];
-    } else {
-        // location.href = "login.html"; // force login TURNED OFF
-        console.log("No login detected — dashboard open for testing 👍");
-    }
-});
-</script>
 
 <div class="navbar">
   <a href="index.html">HOME</a>
