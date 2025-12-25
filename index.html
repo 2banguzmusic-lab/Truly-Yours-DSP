@@ -1,82 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Truly Yours DSP</title>
+<title>Truly Yours DSP</title>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+<style>
+/* ==== FONTS ==== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-    :root {
-      --neon-pink: #ff2bd1;
-      --neon-purple: #7a00ff;
-      --dark-bg: #050008;
-    }
+/* ==== COLORS ==== */
+:root {
+  --neon-pink: #ff2bd1;
+  --neon-purple: #7a00ff;
+  --dark-bg: #050008;
+}
 
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at 20% 10%, #18001f, transparent 40%),
-        radial-gradient(circle at 80% 20%, #0a0014, transparent 40%),
-        var(--dark-bg);
-      color: #fff;
-    }
+/* ==== GLOBAL ==== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(circle at 20% 10%, #18001f, transparent 40%),
+    radial-gradient(circle at 90% 20%, #000014, transparent 40%),
+    var(--dark-bg);
+  color: white;
+}
+</style>
 
-    .hero {
-      min-height: 100vh;
-      padding: 90px 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      max-width: 1100px;
-      margin: auto;
-    }
+</head>
+<body>
 
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      line-height: 1.05;
-    }
+/* ==== NAVBAR ==== */
+.navbar {
+    width: 100%;
+    padding: 18px 40px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    position: fixed; /* stays on top */
+    top: 0;
+}
 
-    .hero h1 span {
-      background: linear-gradient(135deg, #ff2bd1, #7a00ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 0 25px rgba(255,43,209,.5);
-    }
+/* ==== HERO BUTTON ==== */
+button {
+    display: inline-block;
+    width: 350px;
+    padding: 16px 0;
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+    border: none;
+    border-radius: 50px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
 
-    .hero p {
-      font-size: 1rem;
-      max-width: 520px;
-      opacity: 0.85;
-    }
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
 
-    .hero button {
-      background: linear-gradient(135deg, #ff2bd1, #7a00ff);
-      border: none;
-      padding: 14px 32px;
-      font-size: 0.9rem;
-      font-weight: 800;
-      border-radius: 999px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 25px rgba(255,43,209,.4);
-    }
+/* ==== FOOTER ==== */
+footer {
+    width: 100%;
+    padding: 30px 20px;
+    margin-top: 100px;
+    text-align: center;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+    color: white;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
 
-    .hero button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 45px rgba(255,43,209,.6);
-    }
+/* ==== FOOTER LINKS ==== */
+footer a {
+    color: white;
+    margin: 0 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
 
-    .tagline {
-      margin-top: 24px;
-      font-size: 0.75rem;
-      letter-spacing: 1.6px;
-      text-transform: uppercase;
-      opacity: 0.6;
-    }
-  </style>
+footer a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 6px var(--neon-pink);
+}
+
+/* ==== HERO TEXT ==== */
+.hero h1 {
+    font-size: 70px;
+    margin-top: 140px; /* pushes text down because navbar fixed */
+    line-height: 1.1;
+}
+
+.hero span {
+    color: var(--neon-pink);
+}
+
+</style>
+
 </head>
 
 <!-- SPOTLIGHT TITLE -->
