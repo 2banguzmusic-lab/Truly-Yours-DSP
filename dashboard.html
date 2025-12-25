@@ -146,11 +146,12 @@ artistNameElement.innerText = "Artist 🌊";
 
 // ==== LOAD SONGS ====
 async function loadSongs() {
-  songList.innerHTML = "Loading… 🔄";
-  
-  // change folder path to root
-  const folder = ref(storage, "/");  
+  songList.innerHTML = "Loading... 🔄";
 
+  // 👇 THIS IS THE LINE YOU WERE ASKING ABOUT
+  const folder = ref(storage, "/");   // <-- under loadSongs()
+
+  // get all files from root
   const files = await listAll(folder);
 
   if (!files.items.length) {
@@ -160,6 +161,7 @@ async function loadSongs() {
 
   songList.innerHTML = "";
 
+  // loop through every file
   for (const fileRef of files.items) {
     const url = await getDownloadURL(fileRef);
     const fileName = fileRef.name.replace(/^\d+-/, "");
