@@ -1,118 +1,95 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Artist Dashboard – Truly Yours DSP</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Artist Dashboard — Truly Yours DSP</title>
 
+<!-- ====== STYLES ====== -->
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-
-  :root {
-    --neon-pink: #ff2bd1;
-    --neon-purple: #7a00ff;
-    --dark-bg: #050008;
-    --light-text: #ffffff;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at 20% 10%, #18001f, transparent 40%),
-                radial-gradient(circle at 90% 20%, #000014, transparent 40%),
-                var(--dark-bg);
-    color: var(--light-text);
-  }
-
-  .navbar {
-    width: 100%;
-    padding: 18px 40px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(6px);
-    position: fixed;
-    top: 0;
-  }
-  .navbar a {
-    margin-right: 25px;
-    color: var(--light-text);
-    text-decoration: none;
-  }
-
-  .container {
-    margin-top: 120px;
-    width: 85%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  h1 span {
-    color: var(--neon-pink);
-  }
-
-  .section-box {
-    background: rgba(255,255,255,0.05);
-    padding: 25px;
-    border-radius: 12px;
-    margin-top: 25px;
-    border: solid 1px rgba(255,255,255,0.08);
-  }
-
-  .upload-btn, .logout-btn {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
-    padding: 12px 25px;
-    margin-top: 15px;
-    border-radius: 8px;
-    color: white;
-    font-weight: 700;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .logout-btn {
-    background: rgba(255,255,255,0.1);
-  }
+    body {
+        background: radial-gradient(circle at 20% 20%, #290030, #000000);
+        color: white;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        display: flex;
+        gap: 20px;
+        padding: 15px;
+        background: rgba(255,255,255,0.05);
+        font-weight: bold;
+    }
+    .navbar a {
+        text-decoration: none;
+        color: white;
+    }
+    .container {
+        padding: 20px;
+    }
+    .section-box {
+        background: rgba(255,255,255,0.08);
+        padding: 15px;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+    button {
+        padding: 8px 12px;
+        margin-top: 5px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background: #d500f9;
+        color: white;
+        font-weight: bold;
+    }
+    .logout-btn {
+        display: inline-block;
+        margin-top: 15px;
+        background: rgba(255,255,255,0.1);
+        padding: 10px;
+        border-radius: 8px;
+    }
 </style>
 </head>
 
 <body>
 
-
+<!-- ====== NAV ====== -->
 <div class="navbar">
-  <a href="index.html">HOME</a>
-  <a href="upload.html">UPLOAD MORE</a>
-  <a href="#" onclick="logout()">LOG OUT</a>
+    <a href="index.html">HOME</a>
+    <a href="upload.html">UPLOAD MORE</a>
+    <a href="#" onclick="logout()">LOG OUT</a>
 </div>
 
+<!-- ====== CONTENT ====== -->
 <div class="container">
+    <h1>Welcome back, <span id="Artist">Artist</span> 🌊</h1>
+    <p>Your wave is growing — keep dropping heat.</p>
 
-  <!-- Welcome -->
-  <h1>Welcome back, <span>Artist!</span>🌊</h1>
-  <p>Your wave is growing — keep dropping heat.</p>
+    <h2>Your Uploaded Songs 🎧</h2>
+    <ul id="songList">Loading...</ul>
 
-  <!-- RECENT SONGS WITH STATS -->
-<h2>Your Uploaded Songs 🎧</h2>
-<ul id="songList">Loading...</ul>
+    <div class="section-box">
+        <h2>Your YouTube Links</h2>
+        <ul>
+            <li><a href="#" style="color:#ff69ff">Example Link</a></li>
+        </ul>
+    </div>
 
-<!-- YouTube Links -->
-<div class="section-box">
-  <h2>Your YouTube Links</h2>
-  <ul>
-    <li><a href="https://youtube.com/" target="_blank" style="color:var(--neon-pink)">Example Link</a></li>
-  </ul>
+    <a href="#" class="logout-btn" onclick="logout()">Log Out</a>
 </div>
 
-<!-- Logout -->
-<a href="#" class="logout-btn" onclick="logout()">Log Out</a>
-
-</div> <!-- container end -->
-
-<!-- ==== DASHBOARD SCRIPT WITH STATS ==== -->
+<!-- ====== DASHBOARD SCRIPT WITH STATS ====== -->
 <script type="module">
+
+/*** 🔥 Firebase Imports (v10) ***/
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+/*** 🔥 Firebase Config ***/
 const firebaseConfig = {
   apiKey: "AIzaSyB9Wc9me_xmVEorMVSPMhTD9Lq7P6zjJA",
   authDomain: "truly-yours-dsp-2025.firebaseapp.com",
@@ -122,73 +99,76 @@ const firebaseConfig = {
   appId: "1:369021879682:web:ded7b7e150ab8fbb3cbb9b"
 };
 
+/*** 🔥 Init Firebase ***/
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
 const db = getFirestore(app);
 
+/*** ELEMENTS ***/
 const songList = document.getElementById("songList");
-const artistNameElement = document.getElementById("Artist");
-artistNameElement.innerText = "Artist 🌊";
+document.getElementById("Artist").innerText = "Artist";
 
-// ==== LOAD SONGS ====
+/*** 🎧 LOAD SONGS FROM STORAGE ROOT ***/
 async function loadSongs() {
-  songList.innerHTML = "Loading... 🔄";
+    songList.innerHTML = "Loading… 🔄";
 
-  // 👇 THIS IS THE LINE YOU WERE ASKING ABOUT
-  const folder = ref(storage, "/");   // <-- under loadSongs()
+    const folder = ref(storage, "/"); // <--- ROOT WHERE YOUR FILES ARE
+    const files = await listAll(folder);
 
-  // get all files from root
-  const files = await listAll(folder);
-
-  if (!files.items.length) {
-    songList.innerHTML = "<li>No songs yet — upload one 🔥</li>";
-    return;
-  }
-
-  songList.innerHTML = "";
-
-  // loop through every file
-  for (const fileRef of files.items) {
-    const url = await getDownloadURL(fileRef);
-    const fileName = fileRef.name.replace(/^\d+-/, "");
-
-    const statDoc = doc(db, "stats", fileRef.name);
-    let stats = await getDoc(statDoc);
-
-    if (!stats.exists()) {
-      await setDoc(statDoc, { plays: 0, views: 0 });
-      stats = await getDoc(statDoc);
+    if (!files.items.length) {
+        songList.innerHTML = "<li>No songs uploaded yet 🎤🔥</li>";
+        return;
     }
 
-    const { plays, views } = stats.data();
+    songList.innerHTML = "";
+    for (const fileRef of files.items) {
+        const url = await getDownloadURL(fileRef);
+        const fileName = fileRef.name.replace(/^\d+-/, "");
 
-    const li = document.createElement("li");
-    li.innerHTML = `
-      🎵 <strong>${fileName}</strong><br>
-      ▶️ Plays: ${plays} &nbsp; 👁 Views: ${views}<br>
-      <button onclick="playSong('${fileRef.name}', '${url}')">PLAY</button>
-    `;
-    songList.appendChild(li);
-  }
+        // stats doc
+        const statDoc = doc(db, "stats", fileRef.name);
+        let stats = await getDoc(statDoc);
+
+        if (!stats.exists()) {
+            await setDoc(statDoc, { plays: 0, views: 0 });
+            stats = await getDoc(statDoc);
+        }
+
+        const { plays, views } = stats.data();
+
+        const li = document.createElement("li");
+        li.innerHTML = `
+            🎵 <strong>${fileName}</strong><br>
+            ▶️ Plays: ${plays} &nbsp; 👁 Views: ${views}<br>
+            <button onclick="playSong('${fileRef.name}', '${url}')">PLAY</button>
+        `;
+        songList.appendChild(li);
+    }
 }
 
+/*** ▶️ PLAY SONG + TRACK STATS ***/
 window.playSong = async (filename, url) => {
-  const audio = new Audio(url);
-  audio.play();
+    const audio = new Audio(url);
+    audio.play();
 
-  const statDoc = doc(db, "stats", filename);
-  await updateDoc(statDoc, {
-    plays: increment(1),
-    views: increment(1)
-  });
+    const statDoc = doc(db, "stats", filename);
+    await updateDoc(statDoc, {
+        plays: increment(1),
+        views: increment(1)
+    });
 
-  loadSongs();
+    loadSongs(); // refresh stats
 };
 
+/*** 🚪 LOGOUT (TEMP PLACEHOLDER) ***/
+window.logout = () => {
+    alert("Logout coming soon 🔐");
+};
+
+/*** 🔄 RUN ***/
 loadSongs();
+
 </script>
 
 </body>
 </html>
-
-
