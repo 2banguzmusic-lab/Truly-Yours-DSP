@@ -112,7 +112,7 @@ document.getElementById("Artist").innerText = "Artist";
 async function loadSongs() {
     songList.innerHTML = "Loading… 🔄";
 
-    const folder = ref(storage, "/"); // <--- ROOT WHERE YOUR FILES ARE
+    const folder = ref(storage, "artists_audio/"); // <--- ROOT WHERE YOUR FILES ARE
     const files = await listAll(folder);
 
     if (!files.items.length) {
