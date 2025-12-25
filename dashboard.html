@@ -77,6 +77,20 @@
 
 <body>
 
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="firebase-init.js"></script>
+
+<script>
+firebase.auth().onAuthStateChanged(user => {
+  if(user){
+    document.getElementById("artistname").innerText = user.email.split("@")[0];
+  } else {
+    location.href = "login.html"; // force login
+  }
+});
+</script>
+
 <div class="navbar">
   <a href="index.html">HOME</a>
   <a href="upload.html">UPLOAD MORE</a>
@@ -86,7 +100,7 @@
 <div class="container">
 
   <!-- Welcome -->
-  <h1>Welcome back, <span>Artist!</span></h1>
+  <h1>Welcome back, <span>Artist!</span>🌊</h1>
   <p>Your wave is growing — keep dropping heat.</p>
 
   <!-- Recent Uploads -->
