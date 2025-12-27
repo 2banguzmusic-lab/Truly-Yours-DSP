@@ -145,14 +145,11 @@ input[type="text"] {
   </p>
 </div>
 
-<!-- ==== FIREBASE ==== -->
+<!-- ===== UPLOAD USING MODULES (MATCHES DASHBOARD) ===== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-import { 
-  getAuth, 
-  onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getStorage, ref, uploadBytesResumable } 
+from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9b9me_xmEorNFSMPHsTiDP4u7Pc6jfA",
@@ -164,27 +161,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const storage = getStorage(app);
 
-// 🔐 MAKE SURE USER IS LOGGED IN
-onAuthStateChanged(auth, (user) => {
-  console.log("Upload page sees user:", user ? user.email : "none");
-});
-</script>
-
-<!-- ==== UPLOAD FUNCTIONS ==== -->
-<script>
-function goToYouTube() {
-  const link = document.getElementById("youtubeLink").value;
-  if (!link) {
-    alert("Paste your YouTube link");
-    return;
-  }
-  window.open(link, "_blank");
-}
-
-function uploadSong() {
+window.uploadSong = () => {
   const fileInput = document.getElementById("musicFile");
   const status = document.getElementById("uploadStatus");
 
@@ -194,18 +173,24 @@ function uploadSong() {
   }
 
   const file = fileInput.files[0];
-  status.innerText = "Uploading...";
+  status.innerText = "Uploading... 🔄";
 
-  firebase.storage()
-    .ref("artists_audio/" + Date.now() + "-" + file.name)
-    .put(file)
-    .then(() => {
-      status.innerText = "✅ Upload complete!";
-    })
-    .catch(err => {
-      status.innerText = "❌ Error: " + err.message;
-    });
-}
+  const fileRef = ref(storage, "artists_audio/" + Date.now() + "-" + file.name);
+  const uploadTask = uploadBytesResumable(fileRef, file);
+
+  uploadTask.on("state_changed",
+    (snapshot) => {
+      let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      status.innerText = `Uploading... ${Math.round(progress)}%`;
+    },
+    (error) => {
+      status.innerText = "❌ Upload failed: " + error.message;
+    },
+    () => {
+      status.innerText = "👌 Upload complete — check Dashboard!";
+    }
+  );
+};
 </script>
 
 </body>
