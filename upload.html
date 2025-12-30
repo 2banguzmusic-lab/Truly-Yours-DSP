@@ -30,15 +30,15 @@ button { cursor:pointer; background:#ff2bd1; border:none; font-weight:bold; }
   <div id="uploadStatus" class="status">Waiting...</div>
 </div>
 
-
-<!-- ========== UPLOAD SCRIPT ========== -->
+<!-- ========== FIREBASE MODULES (WORKING VERSION) ========== -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { initializeApp } 
+  from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { 
   getStorage, ref, uploadBytesResumable, getDownloadURL 
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
-const firebaseConfig = { 
+const firebaseConfig = {
   apiKey: "AIzaSyB9Wc9me_xmVEorMVSPMHtD9lqQ7P6zjJA",
   authDomain: "truly-yours-dsp-2025.firebaseapp.com",
   projectId: "truly-yours-dsp-2025",
