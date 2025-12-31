@@ -1,51 +1,16 @@
-// ===== Upload Script (Truly Yours DSP v2) =====
+// firebase-init.js
 
-// use initialized firebase app
-import { app } from "./firebase-init.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-
-const storage = getStorage(app);
-
-// ===== UPLOAD SONG =====
-window.uploadSong = () => {
-  const choose = document.getElementById("musicFile");
-  const status = document.getElementById("uploadStatus");
-
-  if (!choose.files.length) {
-    status.innerText = "⚠️ Select an MP3 file first.";
-    return;
-  }
-
-  const file = choose.files[0];
-
-  // prevent duplicate names — append timestamp
-  const filename = `${Date.now()}-${file.name}`;
-
-  // 🚨 folder must match Firebase
-  const filePath = ref(storage, `artists_audio/${filename}`);
-
-  const uploadTask = uploadBytesResumable(filePath, file);
-
-  status.innerText = "Uploading...";
-
-  uploadTask.on(
-    "state_changed",
-    (snapshot) => {
-      const pct = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-      status.innerText = `Uploading... ${pct}%`;
-    },
-    (error) => {
-      status.innerText = `❌ Upload failed: ${error.message}`;
-    },
-    () => {
-      status.innerText = `✅ Upload complete! Refresh dashboard to see it.`;
-    }
-  );
+export const firebaseConfig = {
+  apiKey: "AIzaSyCyt3DsYE6fE4ZARXoE2uP5ddWg2OvwLxs",
+  authDomain: "truly-yours-dsp-v2.firebaseapp.com",
+  projectId: "truly-yours-dsp-v2",
+  storageBucket: "truly-yours-dsp-v2.appspot.com",
+  messagingSenderId: "26187926000",
+  appId: "1:26187926000:web:7aa5ede1559bf2fec3f535"
 };
+
+export const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app);
