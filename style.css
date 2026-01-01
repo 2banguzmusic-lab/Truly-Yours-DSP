@@ -1,0 +1,85 @@
+/* Dark Purple Neon theme */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #090014;
+  color: #fff;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: #1a002f;
+}
+
+header h1 {
+  margin: 0;
+  color: #ff4dff;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #d3b8ff;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ff4dff;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.hero h2 {
+  font-size: 2.3rem;
+  margin-bottom: 10px;
+  color: #ff4dff;
+}
+
+button {
+  background: #ff4dff;
+  border: none;
+  padding: 15px 30px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button:hover {
+  background: #d400ff;
+}
+
+.spotlight {
+  margin: 80px auto;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.spotlight-card {
+  background: #160023;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #ff4dff;
+}
+
+.spotlight-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 100px;
+  padding: 30px;
+  color: #a67dd1;
+}
