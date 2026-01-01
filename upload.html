@@ -8,21 +8,24 @@
 body { background:#050008; color:white; font-family:Arial }
 input,button { width:100%; padding:12px; margin-top:10px }
 button { background:#ff2bd1; border:none; font-weight:bold; cursor:pointer }
+a { color:#ff2bd1; font-weight:bold; display:block; margin-top:20px }
 </style>
 </head>
 
 <body>
 
 <h1>Upload Your Music</h1>
+
 <input type="file" id="musicFile" accept=".mp3">
 <button onclick="uploadSong()">Upload Song</button>
+
 <div id="uploadStatus">Waiting...</div>
 
-<a href="dashboard.html" style="color:#ff2bd1;font-weight:bold">Go to Dashboard ➜</a>
+<a href="dashboard.html">Go to Dashboard ➜</a>
 
+<!-- Firebase + Upload scripts -->
 <script type="module" src="./firebase-init.js"></script>
 <script type="module" src="./upload-script.js"></script>
 
-
-
-
+</body>
+</html>
