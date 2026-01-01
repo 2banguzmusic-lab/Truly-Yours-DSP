@@ -1,55 +1,32 @@
-// ===== Dashboard Script (Truly Yours DSP v2) =====
+import { storage } from "./firebase-init.js";
+import { ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
-// pull initialized firebase app from firebase-init.js
-import { app } from "./firebase-init.js";
-
-import {
-  getStorage,
-  ref,
-  listAll,
-  getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
-
-const storage = getStorage(app);
 const songList = document.getElementById("songList");
 
-// ===== Load Songs from Storage =====
 async function loadSongs() {
-  songList.innerHTML = "Loading… 🔄";
+  songList.innerHTML = "Loading…";
 
-  try {
-    // 🚨 THIS FOLDER NAME MUST MATCH FIREBASE EXACTLY
-    const folder = ref(storage, "artists_audio/");
-    const items = await listAll(folder);
+  const folder = ref(storage, "artists_audio/");
+  const files = await listAll(folder);
 
-    if (!items.items.length) {
-      songList.innerHTML = "<li>No songs uploaded yet 🔥</li>";
-      return;
-    }
+  if (!files.items.length) {
+    songList.innerHTML = "<li>No songs uploaded yet.</li>";
+    return;
+  }
 
-    songList.innerHTML = "";
+  songList.innerHTML = "";
 
-    for (const fileRef of items.items) {
-      const url = await getDownloadURL(fileRef);
+  for (const fileRef of files.items) {
+    const url = await getDownloadURL(fileRef);
+    const cleanName = fileRef.name.replace(/^\d+-/, "");
 
-      const fileName = fileRef.name.replace(/^\d+-/, ""); // remove timestamp prefix
-
-      const li = document.createElement("li");
-      li.innerHTML = `
-        🎵 <strong>${fileName}</strong><br>
-        <button onclick="playSong('${url}')">▶️ Play</button>
-      `;
-      songList.appendChild(li);
-    }
-  } catch (err) {
-    songList.innerHTML = "⚠️ Error loading songs: " + err.message;
+    songList.innerHTML += `
+      <li>
+        🎵 <strong>${cleanName}</strong><br>
+        <audio controls src="${url}" style="width:95%; margin-top:5px;"></audio>
+      </li><br>
+    `;
   }
 }
-
-// ===== PLAY SONG =====
-window.playSong = (url) => {
-  const audio = new Audio(url);
-  audio.play();
-};
 
 loadSongs();
