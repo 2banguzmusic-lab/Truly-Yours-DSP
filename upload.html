@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Upload | Truly Yours DSP</title>
-<style>
-body { background:#050008; color:white; font-family:Arial }
-input,button { width:100%; padding:12px; margin-top:10px }
-button { background:#ff2bd1; border:none; font-weight:bold; cursor:pointer }
-a { color:#ff2bd1; font-weight:bold; display:block; margin-top:20px; }
-</style>
+  <meta charset="UTF-8">
+  <title>Upload • Truly Yours DSP</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <script src="js/auth.js"></script>
 </head>
-
 <body>
 
-<h1>Upload Your Music</h1>
+<header>
+  <h1>Upload</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="listen.html">Listen</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </nav>
+</header>
 
-<input type="file" id="musicFile" accept=".mp3">
-<button onclick="uploadSong()">Upload Song</button>
-<div id="uploadStatus">Waiting...</div>
-
-<a href="dashboard.html">Go to Dashboard ➜</a>
-
-<script type="module" src="./firebase-init.js"></script>
-<script type="module" src="./upload-script.js"></script>
+<section class="hero">
+  <h2>Upload coming soon...</h2>
+  <p>This page will allow artists to upload music & videos.</p>
+</section>
 
 </body>
 </html>
