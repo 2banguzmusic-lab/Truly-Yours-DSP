@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard — Truly Yours DSP</title>
+<title>Dashboard | Truly Yours DSP</title>
+<style>
+  body { background:#050008; color:white; font-family:Arial }
+  h1 { color:#ff2bd1; }
+  li { margin-bottom:10px; }
+</style>
 </head>
 
 <body>
 
-<h1>Dashboard</h1>
-<ul id="songList">Loading...</ul>
+<h1>Your Uploaded Songs</h1>
 
-<!-- Firebase + Dashboard scripts -->
+<!-- THIS is where the songs load -->
+<ul id="songList">Loading songs...</ul>
+
+<!-- Scripts must stay at bottom -->
 <script type="module" src="firebase-init.js"></script>
 <script type="module" src="dashboard-script.js"></script>
 
