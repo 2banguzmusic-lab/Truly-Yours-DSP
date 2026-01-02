@@ -109,4 +109,31 @@ footer {
   color: #888;
   border-top: 1px solid #333;
 }
+/* Song card hover glow */
+.track-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
+.track-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 30px rgba(255, 45, 209, 0.6);
+}
+
+/* Audio control focus glow */
+audio:focus,
+audio:hover {
+  outline: none;
+  box-shadow: 0 0 18px #00f7ff;
+  border-radius: 8px;
+}
+
+/* Soft pulse animation */
+@keyframes softPulse {
+  0%   { box-shadow: 0 0 10px rgba(0, 247, 255, 0.3); }
+  50%  { box-shadow: 0 0 22px rgba(0, 247, 255, 0.6); }
+  100% { box-shadow: 0 0 10px rgba(0, 247, 255, 0.3); }
+}
+
+.now-playing {
+  animation: softPulse 2.5s infinite;
+}
