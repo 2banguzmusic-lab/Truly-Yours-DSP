@@ -1,17 +1,1 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #0b0016;
-  color: white;
-  padding: 20px;
-}
 
-nav a {
-  margin-right: 15px;
-  color: #ff4dff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
