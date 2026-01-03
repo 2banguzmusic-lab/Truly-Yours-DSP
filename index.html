@@ -184,7 +184,41 @@
 <footer>
   © Truly Yours DSP
 
+<!-- Firebase scripts go here (LINE 187 ✅) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+<script>
+  var firebaseConfig = {
+    apiKey: "PASTE_API_KEY",
+    authDomain: "PASTE_AUTH_DOMAIN",
+    projectId: "PASTE_PROJECT_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script>
+  function login() {
+    var email = prompt("Email:");
+    var password = prompt("Password:");
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => alert("Logged in"))
+      .catch(err => alert(err.message));
+  }
+
+  function signup() {
+    var email = prompt("Email:");
+    var password = prompt("Password:");
+
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => alert("Account created"))
+      .catch(err => alert(err.message));
+  }
+</script>
 
 </body>
 </html>
+
+
 
